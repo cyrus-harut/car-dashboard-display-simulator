@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Дисплей приборной панели автомобиля</title>
+    <style>
+        .header
+        {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 20px;
+            text-align: center;
+        }
+        .box
+        {
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .blocks
+        {
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 14px;
+            text-align: left;
+            width: 50%;
+            position: absolute;
+            top: 100px;
+        }
+        .display
+        {
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            height: 320px;
+            width: 240px;
+            background-color: black;
+            float: right;
+            margin-top: 15px;
+        }
+        .page
+        {
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 24px;
+            text-align: center;
+            height: inherit;
+            width: inherit;
+            position: absolute;
+        }
+        #page_1
+        {
+            position: inherit;
+            top: 0;
+            visibility: hidden;
+            height: inherit;
+            width: inherit;
+        }
+        #page_2
+        {
+            position: inherit;
+            top: 0;
+            visibility: hidden;
+            height: inherit;
+            width: inherit;
+        }
+        #page_3
+        {
+            position: inherit;
+            top: 0;
+            visibility: hidden;
+            height: inherit;
+            width: inherit;
+        }
+        .line
+        {
+            border-top: 1px dashed white;
+            visibility: inherit;
+            position: relative;
+        }
+        .N
+        {
+            float: left;
+            margin-right: 10px;
+            visibility: inherit;
+        }
+        #N_1
+        {
+            margin-left: 20px;
+        }
+        @media (max-width: 640px)
+        {
+            .display
+            {
+                margin-left: auto;
+                margin-right: auto;
+                float: none;
+            }
+            .blocks
+            {
+                position: static;
+                min-width: 100%;
+            }
+        }
+        @keyframes color_change 
+        {
+            from { color: white; }
+            to { color: black; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h2>Дисплей приборной панели автомобиля</h2>
+        <a href="./Дисплей приборной панели автомобиля.pdf" target="_blank" style="font-size: 16px;"><b>Скачать требования</b></a>
+    </div>
+    <div class="box">
+        <div class="display" id="IB">
+            <div class="page">
+                <!--Страница "Спидометр"-->
+                <div id="page_1">
+                    <div id="check" style="text-align: right; padding: 20px;">
+                        <img src="CE.png" alt="Check Engine" style="width:24px;height:24px;">
+                    </div>
+                    <div class="line"></div>
+                    <div id="speed" style="font-size: 24px; margin: 60px 0;">0 км/ч</div>
+                    <div class="line"></div>
+                    <div id="fuel" style="font-size: 16px; margin-top: 35px;">
+                        <div class="N" id="N_1">■</div>
+                        <div class="N" id="N_2">■</div>
+                        <div class="N" id="N_3">■</div>
+                        <div class="N" id="N_4">■</div>
+                        <div class="N" id="N_5">■</div>
+                        <div class="N" id="N_6">■</div>
+                        <div class="N" id="N_7">■</div>
+                        <div class="N" id="N_8">■</div>
+                        <div class="N" id="N_9">■</div>
+                        <div class="N" id="N_10">■</div>
+                    </div>
+                </div>
+                <!--Страница "Пробег"-->
+                <div id="page_2">
+                    <div class="line" style="margin-top: 20px;"></div>
+                    <div id="v_sred" style="font-size: 24px; margin: 40px 0;">0 км/ч</div>
+                    <div class="line"></div>
+                    <div id="milage_km" style="font-size: 28px; margin: 60px 0;">0000000.0 км</div>
+                    <div class="line"></div>
+                </div>
+                <!--Страница "Информационные сообщения"-->
+                <div id="page_3">
+                    <div class="line" style="margin-top: 20px;"></div>
+                    <div id="mes" style="font-size: 20px; margin: 52px 0px;"></div>
+                    <div class="line"></div>
+                    <div id="T" style="font-size: 20px; margin: 40px 0px;"></div>
+                </div>
+            </div>
+        </div>
+        <div class="blocks">
+            <div class="block" id="ECB">
+                <h4>Сигналы блока управления двигателем:</h4>
+                
+                <label for = "err_1">Ошибка двигателя 1</label>
+                <input id = "err_1" type="checkbox"/><br>
+
+                <label for = "err_2">Ошибка двигателя 2</label>
+                <input id = "err_2" type="checkbox"/><br>
+
+                <label for = "test_rej">Тестовый режим</label>
+                <input id = "test_rej" type="checkbox"/><br>
+            </div>
+            <div class="block" id="TCB">
+                <h4>Сигналы блока временных расчётов:</h4>
+                
+                <label for= "t_NZspeed">Время движения (с): </label>
+                <input 
+                    id = "t_NZspeed" 
+                    type = "number"
+                    value = 1
+                    min = 1 
+                    max = 4294967295
+                    step = 1
+                    onkeypress = "if (value.length > 10) {return false} else {return (event.charCode >= 48 && event.charCode <= 57)}"
+                    onkeyup = "if (Number(value) < min) value = min; if (Number(value) > max) value = max"
+                /><br><br>
+
+                <label for= "mileage">Пробег (м): </label>
+                <input 
+                    id = "mileage" 
+                    type = "number"
+                    value = 0
+                    min = 0 
+                    max = 4294967295
+                    step = 1
+                    onkeypress = "if (value.length > 10) {return false} else {return (event.charCode >= 48 && event.charCode <= 57)}"
+                    onkeyup = "if (Number(value) < min) value = min; if (Number(value) > max) value = max;"
+                /><br>           
+            </div>
+            <div class="block" id="SIB">
+                <h4>Сигналы блока опроса датчиков:</h4>
+
+                <label for= "v_tek">Текущая скорость (м/с): </label>
+                <input 
+                    id = "v_tek" 
+                    type ="number"
+                    value = 0
+                    min = 0 
+                    max = 60
+                    step = 0.01
+                    maxlength = 5
+                    onkeypress = "if (value.split('.')[1].length >= 2) {return false} else {return ((event.charCode >= 48 && event.charCode <= 57) ||  event.charCode == 0) }"
+                    onkeyup = "if (Number(value) < min) value = Number(min).toFixed(2); if (Number(value) > max) value = Number(max).toFixed(2);"
+                /><br><br>
+
+                <label for= "fuel_ost">Остаток топлива (мл): </label>
+                <input 
+                    id = "fuel_ost" 
+                    type="number"
+                    value = 60000
+                    min = 0 
+                    max = 80000
+                    step = 1
+                    onkeypress = "if (value.length > 5) {return false} else {return (event.charCode >= 48 && event.charCode <= 57)}"
+                    onkeyup = "if (Number(value) < min) value = min; if (Number(value) > max) value = max"
+                /><br>
+            </div>
+            <div class="block" id="WKB">
+                <h4>Сигналы блока кнопок рулевого колеса:</h4>
+
+                <button id="nextBtn">Next page</button>
+            </div>
+        </div>
+    </div>
+    <script src="./Initialize.js"></script>
+</body>
+</html>
